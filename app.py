@@ -1,21 +1,24 @@
 import os
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-print(os.environ['APP_SETTINGS'])
-
+db = SQLAlchemy(app)
+from models import User
 
 @app.route('/')
 def hello():
-    return "Hello World!"
+    return "Hello Flask 🐍!"
 
 
 @app.route('/<name>')
 def hello_name(name):
-    return "Hello {}!".format(name)
+    return f"Hello {name}!!!"
+
 
 if __name__ == '__main__':
     app.run()
